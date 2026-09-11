@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/build/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Build and cache outputs
+.cache/
+*.log
+*.sqlite3
+*.db
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Models and large data artifacts
+*.joblib
+*.pkl
+*.h5
+*.hdf5
+*.nc
+*.nc4
+*.grib
+*.grib2
+*.bin
+*.zip
+*.tar.gz
+
+# Data directories
+data/raw/*
+!data/raw/sea_ice/
+!data/raw/iceberg/
+!data/raw/weather/
+!data/raw/ocean/
+!data/raw/**/README.md
+
+data/processed/*
+!data/processed/.gitkeep
+
+data/sample/*
+!data/sample/.gitkeep
+
+# Temporary and IDE files
+.tmp/
+*.swp
+*.swo
+.DS_Store
+.vscode/
+.idea/
+
+# Local logs
+*.log
+*.out
+*.err

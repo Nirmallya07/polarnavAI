@@ -1,0 +1,16 @@
+Flask==3.0.3
+Flask-Cors==4.0.1
+numpy==2.3.2
+pandas==2.2.3
+scikit-learn==1.5.2
+joblib==1.4.2
+pydantic==2.9.2
+geopandas==1.0.1
+shapely==2.0.6
+pyproj==3.7.1
+xarray==2024.10.0
+netCDF4==1.7.2
+jsonschema==4.23.0
+pytest==8.3.3
+black==24.10.0
+ruff==0.7.4

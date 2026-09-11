@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarNav Navigation Request",
+  "description": "Contract for user navigation requests sent to the backend.",
+  "type": "object",
+  "properties": {
+    "start": { "$ref": "#/$defs/coordinate" },
+    "destination": { "$ref": "#/$defs/coordinate" },
+    "departure_time_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC ISO 8601 date-time for vessel departure."
+    },
+    "vessel": { "$ref": "#/$defs/vessel" },
+    "navigation_mode": { "$ref": "#/$defs/navigation_mode" }
+  },
+  "required": [
+    "start",
+    "destination",
+    "departure_time_utc",
+    "vessel",
+    "navigation_mode"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "coordinate": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      },
+      "required": ["latitude", "longitude"],
+      "additionalProperties": false
+    },
+    "vessel": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speed_knots": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "fuel_rate": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": ["type", "speed_knots", "fuel_rate"],
+      "additionalProperties": false
+    },
+    "navigation_mode": {
+      "type": "string",
+      "enum": ["SAFE", "BALANCED", "FUEL_SAVER"]
+    }
+  }
+}

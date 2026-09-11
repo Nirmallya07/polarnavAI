@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Iceberg Prediction",
+  "description": "Contract for iceberg trajectory predictions produced by the iceberg model.",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tracks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/track" }
+    }
+  },
+  "required": ["model", "generated_at_utc", "tracks"],
+  "additionalProperties": false,
+  "$defs": {
+    "track": {
+      "type": "object",
+      "properties": {
+        "iceberg_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "predictions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/prediction_point" }
+        },
+        "uncertainty_km": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["iceberg_id", "predictions", "uncertainty_km"],
+      "additionalProperties": false
+    },
+    "prediction_point": {
+      "type": "object",
+      "properties": {
+        "timestamp_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      },
+      "required": ["timestamp_utc", "latitude", "longitude"],
+      "additionalProperties": false
+    }
+  }
+}
