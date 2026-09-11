@@ -1,6 +1,6 @@
 # PolarNav AI
 
-PolarNav AI is a 3-day SIH 2026 prototype for AI-powered predictive navigation decision support for Antarctic research vessels.
+PolarNav AI is an AI-powered predictive navigation decision support for Antarctic research vessels.
 
 ## Problem Statement
 
