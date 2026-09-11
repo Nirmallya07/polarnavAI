@@ -4,7 +4,7 @@ PolarNav AI is an AI-powered predictive navigation decision support for Antarcti
 
 ## Problem Statement
 
-SIH26059 — AI-Enabled Antarctic Sea-Ice, Iceberg Trajectory, and Navigation Decision Support System.
+AI-Enabled Antarctic Sea-Ice, Iceberg Trajectory, and Navigation Decision Support System.
 
 The project aims to support vessel operators by combining environmental observations, time-aware predictions, and route-risk evaluation to recommend safer and more efficient navigation paths in Antarctic waters.
 
