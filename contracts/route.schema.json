@@ -29,9 +29,13 @@
     "fuel_estimate": {
       "type": "number",
       "minimum": 0
+    },
+    "cost_score": {
+      "type": "number",
+      "minimum": 0
     }
   },
-  "required": ["mode", "route", "risk_score", "distance_km", "eta_hours", "fuel_estimate"],
+  "required": ["mode", "route", "risk_score", "distance_km", "eta_hours", "fuel_estimate", "cost_score"],
   "additionalProperties": false,
   "$defs": {
     "route_point": {
@@ -47,12 +51,25 @@
           "minimum": -180,
           "maximum": 180
         },
+        "arrival_time_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "risk_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": ["LOW", "MODERATE", "HIGH", "CRITICAL"]
+        },
         "eta_hours": {
           "type": "number",
           "minimum": 0
         }
       },
-      "required": ["latitude", "longitude", "eta_hours"],
+      "required": ["latitude", "longitude", "arrival_time_utc", "risk_score", "risk_level", "eta_hours"],
       "additionalProperties": false
     }
   }

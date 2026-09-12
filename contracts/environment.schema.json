@@ -18,6 +18,11 @@
       "minimum": -180,
       "maximum": 180
     },
+    "sea_ice_concentration": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
     "wind_u10": {
       "type": ["number", "null"]
     },
@@ -44,6 +49,7 @@
     "timestamp_utc",
     "latitude",
     "longitude",
+    "sea_ice_concentration",
     "wind_u10",
     "wind_v10",
     "air_temperature",

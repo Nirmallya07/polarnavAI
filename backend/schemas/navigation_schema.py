@@ -19,7 +19,7 @@ class Coordinate(BaseModel):
 class Vessel(BaseModel):
     type: str = Field(..., min_length=1)
     speed_knots: float = Field(..., gt=0)
-    fuel_rate: float = Field(..., ge=0)
+    fuel_rate: float = Field(..., gt=0)
 
 
 class NavigationRequest(BaseModel):

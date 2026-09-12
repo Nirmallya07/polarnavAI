@@ -23,6 +23,10 @@
       "minimum": 0,
       "maximum": 100
     },
+    "risk_level": {
+      "type": "string",
+      "enum": ["LOW", "MODERATE", "HIGH", "CRITICAL"]
+    },
     "components": {
       "$ref": "#/$defs/component_scores"
     }
@@ -32,6 +36,7 @@
     "latitude",
     "longitude",
     "risk_score",
+    "risk_level",
     "components"
   ],
   "additionalProperties": false,
