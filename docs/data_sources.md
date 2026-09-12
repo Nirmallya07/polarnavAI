@@ -24,6 +24,19 @@
 - Ocean current and sea-surface data products
 - Planned use: current direction, sea-surface temperature, wave conditions, and environmental context
 
+## Copernicus Ocean Data
+
+- Mounted directory: /mnt/polarnav-drive
+- Environment variable override: POLARNAV_COPERNICUS_DIR
+- Expected structure: one monthly NetCDF file per month for the target year
+- Example file: cmems_mod_glo_phy_my_0.083deg_P1D-m_uo-vo-thetao-sithick-usi-vsi_180.00W-180.00E_75.00S-45.00S_0.49m_2023-01-01T00-00-00-2023-01-31T00-00-00.nc
+- Variables used for the current MVP: uo, vo
+- Mappings: uo -> ocean_u, vo -> ocean_v
+- Units: m/s
+- Selection strategy: resolve the file for the timestamp's year/month, then select nearest lat/lon/time using xarray lazy indexing
+- Missing-data handling: NaN or invalid mask values are returned as null in the standardized environment payload rather than being silently converted to zero
+- Scientific note: sithick, usi, vsi, and thetao are not treated as sea-ice concentration, wind, or air temperature in this MVP
+
 ## Dataset Policy
 
 - No massive datasets are to be committed to the repository.
