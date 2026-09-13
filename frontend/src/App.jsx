@@ -5,7 +5,7 @@ import { RouteComparison } from './components/Routes/RouteComparison'
 import { ForecastSelector } from './components/Voyage/ForecastSelector'
 import { VoyagePanel } from './components/Voyage/VoyagePanel'
 import { api } from './services/api'
-import { forecastOptions, mockRiskMap } from './data/mockRiskData'
+import { forecastOptions } from './data/mockRiskData'
 import './App.css'
 
 const defaultStart = { lat: -64.0, lng: 40.0 }
@@ -16,14 +16,19 @@ function App() {
   const [selectionMode, setSelectionMode] = useState(null)
   const [startPoint, setStartPoint] = useState(defaultStart)
   const [destinationPoint, setDestinationPoint] = useState(defaultDestination)
-  const [riskCells, setRiskCells] = useState(mockRiskMap.plus3)
+  const [riskCells, setRiskCells] = useState([])
   const [routes, setRoutes] = useState([])
   const [selectedRoute, setSelectedRoute] = useState(null)
 
   useEffect(() => {
     const loadRisk = async () => {
-      const data = await api.getRiskMap(selectedForecast)
-      setRiskCells(data.cells)
+      try {
+        const data = await api.getRiskMap(selectedForecast)
+        setRiskCells(data.cells)
+      } catch (error) {
+        console.error('Unable to load risk map from backend', error)
+        setRiskCells([])
+      }
     }
 
     loadRisk()

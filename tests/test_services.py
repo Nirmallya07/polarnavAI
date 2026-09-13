@@ -1,3 +1,4 @@
+from backend.app import app
 from backend.services.data_service import DataService
 from backend.services.risk_engine import RiskEngine
 from backend.services.route_optimizer import RouteOptimizer
@@ -205,3 +206,34 @@ def test_route_optimizer_modes_still_return_valid_routes() -> None:
         assert route["distance_km"] > 0
         assert len(route["route"]) >= 2
         assert route["cost_score"] >= 0
+
+
+def test_heatmap_endpoint_returns_real_risk_cells() -> None:
+    client = app.test_client()
+    response = client.get("/api/risk/heatmap?forecast=plus3")
+
+    assert response.status_code == 200
+    payload = response.get_json()
+    assert payload["status"] == "ok"
+    assert payload["forecast_key"] == "plus3"
+    assert len(payload["cells"]) >= 5
+    assert all("risk_score" in cell for cell in payload["cells"])
+
+
+def test_navigation_endpoint_returns_real_route_recommendation() -> None:
+    client = app.test_client()
+    response = client.post(
+        "/api/navigation/recommend",
+        json={
+            "start": {"latitude": -64.2, "longitude": 39.5},
+            "destination": {"latitude": -67.0, "longitude": 50.0},
+            "vessel": {"speed_knots": 12},
+            "navigation_mode": "BALANCED",
+        },
+    )
+
+    assert response.status_code == 200
+    payload = response.get_json()
+    assert payload["status"] == "ok"
+    assert payload["recommendation"]["mode"] == "BALANCED"
+    assert len(payload["recommendation"]["route"]) >= 2
