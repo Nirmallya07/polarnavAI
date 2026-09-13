@@ -1,5 +1,5 @@
 import { mockRiskMap } from '../data/mockRiskData'
-import { mockRoutes } from '../data/mockRoutes'
+import { generateMockRoutes } from '../data/mockRoutes'
 
 export const api = {
   async getRiskMap(forecastKey = 'current') {
@@ -17,7 +17,7 @@ export const api = {
 
     return {
       source: 'mock',
-      routes: mockRoutes,
+      routes: generateMockRoutes(start, destination),
     }
   },
 }

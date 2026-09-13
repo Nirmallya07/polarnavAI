@@ -105,6 +105,8 @@ function App() {
             destinationPoint={destinationPoint}
             selectionMode={selectionMode}
             onMapClick={handleMapClick}
+            routes={routes}
+            selectedRoute={selectedRoute}
           />
 
           <div className="map-overlay-row">

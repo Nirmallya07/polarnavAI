@@ -1,4 +1,4 @@
-import { Circle, CircleMarker, MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet'
+import { Circle, CircleMarker, MapContainer, Marker, Popup, Polyline, TileLayer, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
 import { formatRiskColor } from '../../data/mockRiskData'
 
@@ -26,7 +26,44 @@ function MapInteraction({ onMapClick }) {
   return null
 }
 
-export function AntarcticMap({ riskCells, startPoint, destinationPoint, selectionMode, onMapClick }) {
+export function AntarcticMap({ riskCells, startPoint, destinationPoint, selectionMode, onMapClick, routes = [], selectedRoute = null }) {
+  const routeLayers = routes.map((route) => {
+    const routePoints = Array.isArray(route.route_points) ? route.route_points : []
+    const coordinates = routePoints.map((point) => [point.latitude, point.longitude])
+
+    if (startPoint && coordinates.length > 0) {
+      const startLatLng = [startPoint.lat, startPoint.lng]
+      const firstPoint = coordinates[0]
+      if (Math.abs(firstPoint[0] - startLatLng[0]) > 0.000001 || Math.abs(firstPoint[1] - startLatLng[1]) > 0.000001) {
+        coordinates.unshift(startLatLng)
+      }
+    }
+
+    if (destinationPoint && coordinates.length > 0) {
+      const destinationLatLng = [destinationPoint.lat, destinationPoint.lng]
+      const lastPoint = coordinates[coordinates.length - 1]
+      if (Math.abs(lastPoint[0] - destinationLatLng[0]) > 0.000001 || Math.abs(lastPoint[1] - destinationLatLng[1]) > 0.000001) {
+        coordinates.push(destinationLatLng)
+      }
+    }
+
+    const isSelected = selectedRoute?.mode === route.mode
+
+    return (
+      <Polyline
+        key={route.mode}
+        positions={coordinates}
+        pathOptions={{
+          color: route.color,
+          weight: isSelected ? 5 : 3,
+          opacity: isSelected ? 1 : 0.65,
+          lineCap: 'round',
+          lineJoin: 'round',
+        }}
+      />
+    )
+  })
+
   return (
     <div className="map-frame">
       <MapContainer center={[-68, 18]} zoom={3} minZoom={2} maxZoom={8} scrollWheelZoom className="antarctic-map">
@@ -61,6 +98,8 @@ export function AntarcticMap({ riskCells, startPoint, destinationPoint, selectio
             </Popup>
           </CircleMarker>
         ))}
+
+        {routeLayers}
 
         {startPoint && (
           <Marker position={[startPoint.lat, startPoint.lng]} icon={startIcon}>
